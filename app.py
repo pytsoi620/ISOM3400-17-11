@@ -1,46 +1,40 @@
 import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
 
+st.set_page_config(page_title="My First App", page_icon="✨")
 
-
-st.title("Retail Business Dashboard")
-
-st.subheader("Manager Input Section")
-
-st.write("Please enter the monthly sales target and select the region")
-
-st.number_input("Enter Monthly Sales Target(in USD):", value=50000) 
-
-option = st.selectbox("Select Region:",
-                      ["North", "South", "West"])
-
-
-Submit = st.button("Submit")
-
-st.write("**bold** and *italic*")
-st.write("**hello** and *world*")
-st.code("print('hello')", language="python")
-
-st.text_input("Your name")
-st.number_input("Age", min_value=0, max_value=120)
-st.slider("Pick a number", 0, 100, 50)
-st.selectbox("Choose", ["A", "B", "C"])
-st.checkbox("I agree")
-st.button("Submitt")
-
-col1, col2, col3 = st.columns(3)
+# Sidebar
 with st.sidebar:
-    st.write("Sidebar content")
-    st.slider("Pick a number", 0, 100, 50)
-st.tabs(["Tab 1", "Tab 2", "Tab 3", "Tab 4"])
+    st.header("Settings")
+    name = st.text_input("Your name", "Student")
 
+# Main title
+st.title("Welcome to My First Streamlit App")
+st.write(f"Hello, **{name}**! This app is built in pure Python.")
 
-st.metric("Revenue", "$1,200", "+5%")
+# Tabs
+tab1, tab2 = st.tabs(["Greeting", "Calculator"])
 
+with tab1:
+    st.subheader("A Friendly Greeting")
+    mood = st.selectbox("How are you feeling?", ["Happy", "Neutral", "Tired"])
+    if st.button("Say hello"):
+        st.success(f"Great to hear you're {mood.lower()}, {name}!")
 
-st.success("Done!")
-st.error("Something went wrong")
-st.warning("Careful")
-st.info("For your information")
+with tab2:
+    st.subheader("Simple Calculator")
+    col1, col2 = st.columns(2)
+    with col1:
+        a = st.number_input("First number", value=0.0)
+    with col2:
+        b = st.number_input("Second number", value=0.0)
+    op = st.radio("Operation", ["+", "-", "×", "÷"], horizontal=True)
+    if st.button("Calculate"):
+        if op == "+":
+            result = a + b
+        elif op == "-":
+            result = a - b
+        elif op == "×":
+            result = a * b
+        else:
+            result = a / b if b != 0 else "undefined (division by zero)"
+        st.metric("Result", result)
