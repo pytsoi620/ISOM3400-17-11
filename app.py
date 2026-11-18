@@ -7,7 +7,7 @@ import numpy as np
 # Title and Description
 # -------------------------------
 st.title("📊 Business Sales Dashboard")
-st.subtitle("Analyze monthly sales data interactively!")
+st.subheader("Analyze monthly sales data interactively!")
 
 # -------------------------------
 # Sample Data
