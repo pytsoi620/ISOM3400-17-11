@@ -30,7 +30,10 @@ st.selectbox("Choose", ["A", "B", "C"])
 st.checkbox("I agree")
 st.button("Submitt")
 
-
+col1, col2 = st.columns(2)
+with st.sidebar:
+    st.write("Sidebar content")
+st.tabs(["Tab 1", "Tab 2"])
 
 
 
