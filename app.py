@@ -19,7 +19,7 @@ option = st.selectbox("Select Region:",
 
 Submit = st.button("Submit")
 
-st.markdown("**bold** and *italic*")
+st.write("**bold** and *italic*")
 
 
 
