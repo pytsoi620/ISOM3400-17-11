@@ -38,3 +38,9 @@ st.tabs(["Tab 1", "Tab 2", "Tab 3", "Tab 4"])
 
 
 st.metric("Revenue", "$1,200", "+5%")
+
+
+st.success("Done!")
+st.error("Something went wrong")
+st.warning("Careful")
+st.info("For your information")
