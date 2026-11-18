@@ -30,9 +30,10 @@ st.selectbox("Choose", ["A", "B", "C"])
 st.checkbox("I agree")
 st.button("Submitt")
 
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
 with st.sidebar:
     st.write("Sidebar content")
+    st.slider("Pick a number", 0, 100, 50)
 st.tabs(["Tab 1", "Tab 2"])
 
 
