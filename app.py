@@ -27,7 +27,7 @@ with tab2:
         a = st.number_input("First number", value=0.0)
     with col2:
         b = st.number_input("Second number", value=0.0)
-    op = st.selectbox("Operation", ["+", "-", "×", "÷"])
+    op = st.selectbox("Operation", ["+", "-", "×", "÷"], horizontal=True)
     if st.button("Calculate"):
         if op == "+":
             result = a + b
