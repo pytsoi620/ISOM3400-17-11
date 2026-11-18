@@ -21,6 +21,7 @@ Submit = st.button("Submit")
 
 st.write("**bold** and *italic*")
 st.write("**hello** and *world*")
+st.code("print('hello')", language="python")
 
 
 
