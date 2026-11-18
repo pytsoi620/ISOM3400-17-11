@@ -20,7 +20,7 @@ option = st.selectbox("Select Region:",
 Submit = st.button("Submit")
 
 st.write("**bold** and *italic*")
-st.("**bold** and *italic*")
+st("**bold** and *italic*")
 
 
 
