@@ -23,6 +23,12 @@ st.write("**bold** and *italic*")
 st.write("**hello** and *world*")
 st.code("print('hello')", language="python")
 
+st.text_input("Your name")
+st.number_input("Age", min_value=0, max_value=120)
+st.slider("Pick a number", 0, 100, 50)
+st.selectbox("Choose", ["A", "B", "C"])
+st.checkbox("I agree")
+st.button("Submit")
 
 
 
