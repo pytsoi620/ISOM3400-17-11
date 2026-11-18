@@ -1,12 +1,12 @@
 import streamlit as st
 
+st.set_page_config(page_title="My First App", page_icon="✨")
 
 
 # Sidebar
 with st.sidebar:
     st.header("Settings")
     name = st.text_input("Your name", "Student")
-st.set_page_config(page_title="My First App", page_icon="✨")
 # Main title
 st.title("Welcome to My First Streamlit App")
 st.write(f"Hello, **{name}**! This app is built in pure Python.")
