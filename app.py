@@ -36,6 +36,5 @@ with st.sidebar:
     st.slider("Pick a number", 0, 100, 50)
 st.tabs(["Tab 1", "Tab 2", "Tab 3", "Tab 4"])
 
-st.dataframe(df)
-st.table(df)
+
 st.metric("Revenue", "$1,200", "+5%")
