@@ -1,40 +1,66 @@
 import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 
-st.set_page_config(page_title="My First App", page_icon="✨")
+# -------------------------------
+# Title and Description
+# -------------------------------
+st.title("📊 Business Sales Dashboard")
+st.write("Analyze monthly sales data interactively!")
 
+# -------------------------------
+# Sample Data
+# -------------------------------
+months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+          "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+sales = np.random.randint(5000, 20000, size=12)
+expenses = np.random.randint(3000, 15000, size=12)
 
-# Sidebar
-with st.sidebar:
-    st.header("Settings")
-    name = st.text_input("Your name", "Student")
-# Main title
-st.title("Welcome to My First Streamlit App")
-st.write(f"Hello, **{name}**! This app is built in pure Python.")
+data = pd.DataFrame({
+    "Month": months,
+    "Sales": sales,
+    "Expenses": expenses
+})
 
-# Tabs
-tab1, tab2 = st.tabs(["Greeting", "Calculator"])
+# -------------------------------
+# Sidebar Filters
+# -------------------------------
+st.sidebar.header("Filters")
+selected_months = st.sidebar.multiselect("Select Months", months,
+                                         default=months)
+show_expenses = st.sidebar.checkbox("Show Expenses", value=True)
 
-with tab1:
-    st.subheader("A Friendly Greeting")
-    mood = st.selectbox("How are you feeling?", ["Happy", "Neutral", "Tired"])
-    if st.button("Say hello"):
-        st.success(f"Great to hear you're {mood.lower()}, {name}!")
+# Filter data
+filtered_data = data[data["Month"].isin(selected_months)]
 
-with tab2:
-    st.subheader("Simple Calculator")
-    col1, col2 = st.columns(2)
-    with col1:
-        a = st.number_input("First number", value=0.0)
-    with col2:
-        b = st.number_input("Second number", value=0.0)
-    op = st.radio("Operation", ["+", "-", "×", "÷"], horizontal=True)
-    if st.button("Calculate"):
-        if op == "+":
-            result = a + b
-        elif op == "-":
-            result = a - b
-        elif op == "×":
-            result = a * b
-        else:
-            result = a / b if b != 0 else "undefined (division by zero)"
-        st.metric("Result", result)
+# -------------------------------
+# Display Data Table
+# -------------------------------
+st.subheader("Filtered Data")
+st.dataframe(filtered_data)
+
+# -------------------------------
+# Interactive Chart
+# -------------------------------
+st.subheader("Sales Chart")
+fig, ax = plt.subplots()
+ax.plot(filtered_data["Month"], filtered_data["Sales"],
+        marker='o', label="Sales")
+if show_expenses:
+    ax.plot(filtered_data["Month"], filtered_data["Expenses"],
+            marker='o', label="Expenses")
+ax.set_title("Monthly Performance")
+ax.set_xlabel("Month")
+ax.set_ylabel("Amount ($)")
+ax.legend()
+st.pyplot(fig)
+
+# -------------------------------
+# KPI Metrics
+# -------------------------------
+st.subheader("Key Metrics")
+col1, col2, col3 = st.columns(3)
+col1.metric("Total Sales", f"${filtered_data['Sales'].sum():,.0f}")
+col2.metric("Total Expenses", f"${filtered_data['Expenses'].sum():,.0f}")
+col3.metric("Profit", f"${(filtered_data['Sales'].sum() - filtered_data['Expenses'].sum()):,.0f}")
