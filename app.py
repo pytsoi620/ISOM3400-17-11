@@ -1,66 +1,36 @@
 import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
 
-# -------------------------------
-# Title and Description
-# -------------------------------
-st.title("📊 Business Sales Dashboard")
-st.subheader("Analyze monthly sales data interactively!")
+# ---------------------------------------------------------------------------
+# Retail Business Dashboard
+# ---------------------------------------------------------------------------
+# A retail manager enters a monthly sales target, selects a region, then
+# clicks Submit to see a summary.
+# Replace each ______ with the missing code. Do not pre-write answers in
+# functions — keep everything at top level.
 
-# -------------------------------
-# Sample Data
-# -------------------------------
-months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-          "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-sales = np.random.randint(5000, 20000, size=12)
-expenses = np.random.randint(3000, 15000, size=12)
+# Blank A: page title (match the screenshot).
+st.title("Retail Business Dashboard")  # hint: st.title("...")
 
-data = pd.DataFrame({
-    "Month": months,
-    "Sales": sales,
-    "Expenses": expenses
-})
+# Blank B: section header (match the screenshot).
+st.header("Manager Input Section")  # hint: st.header("...")
 
-# -------------------------------
-# Sidebar Filters
-# -------------------------------
-st.sidebar.header("Filters")
-selected_months = st.sidebar.multiselect("Select Months", months,
-                                         default=months)
-show_expenses = st.sidebar.checkbox("Show Expenses", value=True)
+# Blank C: short instruction under the header (match the screenshot).
+st.write("Please enter the monthly sales target and select the region.")  # hint: st.write("...")
 
-# Filter data
-filtered_data = data[data["Month"].isin(selected_months)]
+# Blank D: monthly sales target (USD). Default 50000. Minimum 0. (match the screenshot)
+# Do not set a maximum (the Challenge uses a target above 50000).
+sales_target = st.number_input("Enter Monthly Sales Target(in USD:)",min_value=0,value=150000)  # hint: st.number_input("...")
 
-# -------------------------------
-# Display Data Table
-# -------------------------------
-st.subheader("Filtered Data")
-st.dataframe(filtered_data)
+# Blank E: region dropdown (match the options shown in the document).
+region = st.selectbox("Select Region:",
+                      ["North", "South", "East","West"])  # hint: st.selectbox("...")
 
-# -------------------------------
-# Interactive Chart
-# -------------------------------
-st.subheader("Sales Chart")
-fig, ax = plt.subplots()
-ax.plot(filtered_data["Month"], filtered_data["Sales"],
-        marker='o', label="Sales")
-if show_expenses:
-    ax.plot(filtered_data["Month"], filtered_data["Expenses"],
-            marker='o', label="Expenses")
-ax.set_title("Monthly Performance")
-ax.set_xlabel("Month")
-ax.set_ylabel("Amount ($)")
-ax.legend()
-st.pyplot(fig)
+# Blank F: Submit button, then show the entered values and a success message (match the screenshot).
+if st.button("Submit"):  # hint: st.button("...")
+    st.write(f"Sales Target: ${sales_target}")  # hint: st.write("...")  — sales target, include a $
+    st.write(f"Region Selected: {region}")  # hint: st.write("...")  — region selected
+    st.success("Dashboard updated successfully!")  # hint: st.success("...")
 
-# -------------------------------
-# KPI Metrics
-# -------------------------------
-st.subheader("Key Metrics")
-col1, col2, col3 = st.columns(3)
-col1.metric("Total Sales", f"${filtered_data['Sales'].sum():,.0f}")
-col2.metric("Total Expenses", f"${filtered_data['Expenses'].sum():,.0f}")
-col3.metric("Profit", f"${(filtered_data['Sales'].sum() - filtered_data['Expenses'].sum()):,.0f}")
+    # Challenge: if the sales target is greater than 100000, show an extra message (match the screenshot).
+    if sales_target > 100000:  # hint: compare sales_target with 100000
+        st.write("You have set an ambitious target!")  # hint: st.write("...")
